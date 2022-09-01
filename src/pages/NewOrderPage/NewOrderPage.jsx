@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as itemsAPI from '../../utilities/items-api';
+import * as ordersAPI from '../../utilities/orders-api';
 import './NewOrderPage.css';
 import Logo from '../../components/Logo/Logo';
 import MenuList from '../../components/MenuList/MenuList';
@@ -11,6 +12,7 @@ import UserLogOut from '../../components/UserLogOut/UserLogOut';
 export default function NewOrderPage({ user, setUser }) {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCat, setActiveCat] = useState('');
+  const [cart, setCart] = useState(null);
   const categoriesRef = useRef([]);
 
   useEffect(function() {
@@ -21,6 +23,11 @@ export default function NewOrderPage({ user, setUser }) {
       setActiveCat(categoriesRef.current[0]);
     }
     getItems();
+    async function getCart() {
+      const cart = await ordersAPI.getCart();
+      setCart(cart);
+    }
+    getCart();
   }, []);
   // an empty dependency array causes the effect
   // to run once after the first render only
