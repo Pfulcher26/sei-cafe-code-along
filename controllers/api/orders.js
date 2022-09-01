@@ -20,6 +20,7 @@ async function addToCart(req, res) {
 
 // Updates an item's qty in the cart
 async function setItemQtyInCart(req, res) {
+  
 }
 
 // Update the cart's isPaid property to true
